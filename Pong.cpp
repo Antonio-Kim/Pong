@@ -15,7 +15,7 @@ int main()
 	
 	sf::Text hud;
 	sf::Font font;
-	font.loadFromFile("fonts/digital.tff");
+	font.loadFromFile("fonts/digital.ttf");
 	hud.setFont(font);
 	hud.setCharacterSize(75);
 	hud.setFillColor(sf::Color::White);
@@ -24,7 +24,31 @@ int main()
 	sf::Clock clock;
 
 	while (window.isOpen()) {
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				window.close();
+			}
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+			window.close();
+		}
 
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ? bat.moveLeft() : bat.stopLeft();
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ? bat.moveRight() : bat.stopRight();
+
+
+		sf::Time dt = clock.restart();
+		bat.updateTime(dt);
+		std::stringstream ss;
+		ss << "Score: " << score << "  Lives: " << lives;
+		hud.setString(ss.str());
+
+
+		window.clear();
+		window.draw(hud);
+		window.draw(bat.getShape());
+		window.display();
 	}
 
 	return 0;
