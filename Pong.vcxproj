@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Bat.cpp" />
     <ClCompile Include="Pong.cpp" />
   </ItemGroup>
